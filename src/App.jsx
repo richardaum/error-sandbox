@@ -21,12 +21,13 @@ const App = () => {
 
 const Parent = () => {
   const { isError } = useQuery();
+  console.log("Parent", JSON.stringify({ isError }));
   return isError ? <Error /> : <Child />;
 };
 
 const Child = () => {
   const { isError, data } = useQuery();
-
+  console.log("Child", JSON.stringify({ data, isError }));
   if (isError) return null;
 
   return (
