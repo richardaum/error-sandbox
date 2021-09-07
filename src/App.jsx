@@ -15,7 +15,7 @@ const queryClient = new QueryClient({
 
 const useMyQuery = () =>
   useQuery(
-    ["period"],
+    "period",
     async () => {
       const { data } = await axios.get(`http://http.us/500`);
       return data;
@@ -33,11 +33,13 @@ const App = () => {
 
 const Parent = () => {
   const { isError } = useMyQuery();
+  console.log("Parent", JSON.stringify({ isError }));
   return isError ? <Error /> : <Child />;
 };
 
 const Child = () => {
-  const { data: periods } = useMyQuery();
+  const { data: periods, isError } = useMyQuery();
+  console.log("Child", JSON.stringify({ periods, isError }));
   return (
     <pre>
       <code>{JSON.stringify(periods.aggregations)}</code>
